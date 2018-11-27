@@ -15,7 +15,7 @@ var scrape = function() {
 
     // Now, find and loop through each element that has the "css-180b3ld" class
     // (i.e, the section holding the articles)
-    $("article.css-180b3ld").each(function(i, element) {
+    $("list-group-item").each(function(i, element) {
       // In each article section, we grab the child with the class story-heading
 
       // Then we grab the inner text of the this element and store it
