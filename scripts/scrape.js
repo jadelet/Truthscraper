@@ -5,7 +5,7 @@
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-// This function will scrape the NYTimes website
+// This function will scrape the Snopes website
 var scrape = function() {
   // Scrape the NYTimes website
   return axios.get("http://www.snopes.com").then(function(res) {
@@ -15,27 +15,25 @@ var scrape = function() {
 
     // Now, find and loop through each element that has the "css-180b3ld" class
     // (i.e, the section holding the articles)
-    $("list-group-item").each(function (i, element) {
-    
+    $("article.css-180b3ld").each(function(i, element) {
       // In each article section, we grab the child with the class story-heading
 
       // Then we grab the inner text of the this element and store it
       // to the head variable. This is the article headline
       var head = $(this)
-      .find("a")
-      .text()
-      .trim();
+        .find("h2")
+        .text()
+        .trim();
 
       // Grab the URL of the article
-      var url =  $(this)
-      .find("a")
-      .attr("href");
-
+      var url = $(this)
+        .find("a")
+        .attr("href");
 
       // Then we grab any children with the class of summary and then grab it's inner text
       // We store this to the sum variable. This is the article summary
       var sum = $(this)
-        .find("heading")
+        .find("p")
         .text()
         .trim();
 
@@ -51,7 +49,7 @@ var scrape = function() {
         var dataToAdd = {
           headline: headNeat,
           summary: sumNeat,
-          url: "https://www.snopes.com" + url
+          url: "https://www.nytimes.com" + url
         };
 
         articles.push(dataToAdd);
